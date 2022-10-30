@@ -1,10 +1,8 @@
-# homie_ble
+# Homie Studio App
 
-A new Flutter project.
+A Flutter app to manage all BLE-enabled products created by Homie Studio Kenya.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
+## Notes
 
 A few resources to get you started if this is your first Flutter project:
 
