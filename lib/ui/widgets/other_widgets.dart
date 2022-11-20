@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:homie_ble/models/globals.dart';
-import 'package:homie_ble/models/style.dart';
 import 'package:provider/provider.dart';
+
+import '../../state/globals.dart';
+import '../../methods/globals.dart';
+import '../theme/theme.dart';
 
 // ---------- most of the titles eey
 
-Widget titleText(String title) {
+Widget title(String title) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 20),
     child: Text(
@@ -15,6 +17,23 @@ Widget titleText(String title) {
         fontSize: 16,
         fontWeight: FontWeight.bold,
         color: Colors.white,
+      ),
+    ),
+  );
+}
+
+// ---------- In favorites, shown when a fav list is empty
+Widget emptyFavList(String text) {
+  return SizedBox(
+    height: 50,
+    child: Text(
+      "No favorite $text ...",
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        fontStyle: FontStyle.italic,
+        color: Colors.white54,
       ),
     ),
   );
@@ -33,56 +52,21 @@ Widget notConnected() {
         ),
         child: Icon(
           Icons.lightbulb,
-          color: Colors.blue,
+          color: Colors.white30,
           size: w * 0.2,
         ),
       ),
       const Text(
-        "Connect a lamp first ...",
+        "Maybe connect a lamp first...",
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          fontStyle: FontStyle.italic,
+          color: Colors.white54,
         ),
       ),
     ],
-  );
-}
-
-// ---------- In favorites, when a fav list is empty
-Widget emptyFavList(String text) {
-  return Container(
-    // margin: const EdgeInsets.symmetric(horizontal: 10),
-    padding: const EdgeInsets.all(20),
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white10,
-        boxShadow: const [BoxShadow(offset: Offset(0, 0), color: Colors.black38, blurRadius: 4)]),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(
-          Icons.sentiment_dissatisfied,
-          color: Colors.white,
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-        Flexible(
-          child: Text(
-            "No favorite $text yet !",
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ],
-    ),
   );
 }
 
@@ -97,10 +81,32 @@ Widget selectedOptionDot(String value) {
             alignment: Alignment.topRight,
             child: Icon(
               Icons.brightness_1,
-              color: themeColor,
+              color: themeColors[global.themeNo],
               size: 20,
             )),
       ),
     );
   });
+}
+
+// ---------- Butoon Assignment, little numbered white circles
+Widget numberedCircle(int number) {
+  return Container(
+    margin: const EdgeInsets.only(bottom: 5),
+    padding: const EdgeInsets.all(2),
+    decoration: const BoxDecoration(
+      shape: BoxShape.circle,
+      color: Colors.white,
+    ),
+    child: Center(
+      child: Text(
+        number.toString(),
+        style: const TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ),
+      ),
+    ),
+  );
 }

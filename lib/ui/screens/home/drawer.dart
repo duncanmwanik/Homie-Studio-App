@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:homie_ble/models/globals.dart';
+
+import '../../../methods/globals.dart';
+import '../../theme/theme.dart';
 
 // ignore: must_be_immutable
 class DrawerClass extends StatefulWidget {
@@ -16,7 +18,6 @@ class DrawerClassState extends State<DrawerClass> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Drawer(
-        // shape: const RoundedRectangleBorder(),
         child: Container(
           decoration: const BoxDecoration(
             color: Color(0xff151515),
@@ -44,8 +45,8 @@ class DrawerClassState extends State<DrawerClass> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(w / 3, 50),
-                      backgroundColor: Colors.amber, // background (button) color
-                      foregroundColor: Colors.white, // foreground (text) color
+                      backgroundColor: themeColors[global.themeNo],
+                      foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       )),
@@ -65,8 +66,8 @@ class DrawerClassState extends State<DrawerClass> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(w / 3, 50),
-                      backgroundColor: Colors.amber, // background (button) color
-                      foregroundColor: Colors.white, // foreground (text) color
+                      backgroundColor: themeColors[global.themeNo],
+                      foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       )),

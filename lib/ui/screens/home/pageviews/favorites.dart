@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:homie_ble/models/ble.dart';
-import 'package:homie_ble/models/globals.dart';
-import 'package:homie_ble/models/objects/music.dart';
-import 'package:homie_ble/models/objects/patterns.dart';
-import 'package:homie_ble/models/style.dart';
-import 'package:homie_ble/ui/widgets/other_widgets.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../models/music.dart';
+import '../../../../models/patterns.dart';
+import '../../../../state/globals.dart';
+import '../../../../methods/ble.dart';
+import '../../../../methods/globals.dart';
+import '../../../theme/theme.dart';
+import '../../../widgets/other_widgets.dart';
 
 // ignore: must_be_immutable
 Widget favoritesPage() {
@@ -17,20 +19,17 @@ Widget favoritesPage() {
       child: Column(
         children: [
           // ----------- COLORS
-          titleText("COLORS"),
+          title("COLORS"),
 
           global.favColors.isNotEmpty
               ? Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white10,
-                      boxShadow: const [BoxShadow(offset: Offset(0, 0), color: Colors.black38, blurRadius: 4)]),
+                  decoration: deco,
                   child: GridView.count(
                       crossAxisCount: 5,
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
+                      crossAxisSpacing: 6.0,
+                      mainAxisSpacing: 6.0,
                       shrinkWrap: true,
                       physics: const ScrollPhysics(),
                       children: List.generate(global.favColors.length, (index) {
@@ -39,14 +38,14 @@ Widget favoritesPage() {
                             ElevatedButton(
                               onPressed: () {
                                 sendDataToDevice(global.favColors[index]);
-                                globalWatch.updateSelected(global.favColors[index]);
+                                global.updateSelected(global.favColors[index]);
                               },
                               onLongPress: () {
                                 global.removeFromFavorite("color", global.favColors[index]);
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(int.parse(global.favColors[index].replaceAll("0x", "0xff"))),
-                                  foregroundColor: themeColor,
+                                  foregroundColor: themeColors[global.themeNo],
                                   minimumSize: const Size(double.infinity, double.infinity),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20.0),
@@ -61,19 +60,16 @@ Widget favoritesPage() {
               : emptyFavList("colors"),
 
           // // ----------- PATTERNS
-          titleText("PATTERNS"),
+          title("PATTERNS"),
           global.favPatterns.isNotEmpty
               ? Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white10,
-                      boxShadow: const [BoxShadow(offset: Offset(0, 0), color: Colors.black38, blurRadius: 4)]),
+                  decoration: deco,
                   child: GridView.count(
                       crossAxisCount: 4,
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
+                      crossAxisSpacing: 6.0,
+                      mainAxisSpacing: 6.0,
                       shrinkWrap: true,
                       physics: const ScrollPhysics(),
                       children: List.generate(global.favPatterns.length, (index) {
@@ -82,14 +78,14 @@ Widget favoritesPage() {
                             ElevatedButton(
                               onPressed: () {
                                 sendDataToDevice(global.favPatterns[index]);
-                                globalWatch.updateSelected(global.favPatterns[index]);
+                                global.updateSelected(global.favPatterns[index]);
                               },
                               onLongPress: () {
-                                globalWatch.removeFromFavorite("pattern", global.favPatterns[index]);
+                                global.removeFromFavorite("pattern", global.favPatterns[index]);
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,
-                                  foregroundColor: themeColor,
+                                  foregroundColor: themeColors[global.themeNo],
                                   padding: EdgeInsets.zero,
                                   minimumSize: const Size(double.infinity, double.infinity),
                                   shape: RoundedRectangleBorder(
@@ -109,20 +105,17 @@ Widget favoritesPage() {
               : emptyFavList("patterns"),
 
           // // ----------- VU
-          titleText("MUSIC"),
+          title("MUSIC"),
 
           global.favMusic.isNotEmpty
               ? Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white10,
-                      boxShadow: const [BoxShadow(offset: Offset(0, 0), color: Colors.black38, blurRadius: 4)]),
+                  decoration: deco,
                   child: GridView.count(
                       crossAxisCount: 4,
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
+                      crossAxisSpacing: 6.0,
+                      mainAxisSpacing: 6.0,
                       shrinkWrap: true,
                       physics: const ScrollPhysics(),
                       children: List.generate(global.favMusic.length, (index) {
@@ -131,14 +124,14 @@ Widget favoritesPage() {
                             ElevatedButton(
                               onPressed: () {
                                 sendDataToDevice(global.favMusic[index]);
-                                globalWatch.updateSelected(global.favMusic[index]);
+                                global.updateSelected(global.favMusic[index]);
                               },
                               onLongPress: () {
                                 global.removeFromFavorite("music", global.favMusic[index]);
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,
-                                  foregroundColor: themeColor,
+                                  foregroundColor: themeColors[global.themeNo],
                                   padding: EdgeInsets.zero,
                                   minimumSize: const Size(double.infinity, double.infinity),
                                   shape: RoundedRectangleBorder(
@@ -156,6 +149,10 @@ Widget favoritesPage() {
                       })),
                 )
               : emptyFavList("music vu"),
+
+          SizedBox(
+            height: h * 0.1,
+          ),
         ],
       ),
     );

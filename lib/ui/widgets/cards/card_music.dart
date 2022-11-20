@@ -1,10 +1,10 @@
 // Pattern widget
 import 'package:flutter/material.dart';
-import 'package:homie_ble/models/ble.dart';
-import 'package:homie_ble/models/globals.dart';
-import 'package:homie_ble/models/objects/music.dart';
-import 'package:homie_ble/models/style.dart';
-import 'package:homie_ble/ui/widgets/other_widgets.dart';
+import '../../../models/music.dart';
+import '../../../methods/ble.dart';
+import '../../../methods/globals.dart';
+import '../../theme/theme.dart';
+import '../other_widgets.dart';
 
 Widget musicCard({required MusicObject music}) {
   return Stack(
@@ -12,14 +12,14 @@ Widget musicCard({required MusicObject music}) {
       ElevatedButton(
         onPressed: () {
           sendDataToDevice(music.code);
-          globalWatch.updateSelected(music.code);
+          global.updateSelected(music.code);
         },
         onLongPress: () {
-          globalWatch.addToFavorite("music", music.code);
+          global.addToFavorite("music", music.code);
         },
         style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
-            foregroundColor: themeColor,
+            foregroundColor: themeColors[global.themeNo],
             padding: EdgeInsets.zero,
             minimumSize: const Size(double.infinity, double.infinity),
             shape: RoundedRectangleBorder(

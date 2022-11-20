@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:homie_ble/models/ble.dart';
-import 'package:homie_ble/models/globals.dart';
-import 'package:homie_ble/models/style.dart';
-import 'package:homie_ble/ui/widgets/loading_widget.dart';
+
+import '../../../methods/ble.dart';
+import '../../../methods/globals.dart';
+import '../../theme/theme.dart';
+import '../../widgets/back_button.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/toast/toast.dart';
 
 class DevicesScreen extends StatefulWidget {
   const DevicesScreen({super.key});
@@ -19,8 +22,9 @@ class DevicesScreenState extends State<DevicesScreen> {
       backgroundColor: primaryColor,
       appBar: AppBar(
         centerTitle: true,
+        leading: backButton(context),
         title: const Text(
-          'Select a device',
+          'Select a lamp',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
         ),
         backgroundColor: Colors.transparent,
@@ -50,12 +54,12 @@ class DevicesScreenState extends State<DevicesScreen> {
                             if (success) {
                               Navigator.pop(context);
                             } else {
-                              notifyUser(0, "Failed to connect!");
+                              toast(0, "Failed to connect!");
                             }
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
-                              foregroundColor: themeColor,
+                              foregroundColor: themeColors[global.themeNo],
                               minimumSize: Size(w * 0.6, 60),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                           child: Row(
@@ -93,20 +97,20 @@ class DevicesScreenState extends State<DevicesScreen> {
           if (snapshot.data!) {
             return FloatingActionButton(
               onPressed: () => FlutterBlue.instance.stopScan(),
-              backgroundColor: themeColor,
+              backgroundColor: themeColors[global.themeNo],
               child: const Icon(Icons.stop),
             );
           } else {
             return FloatingActionButton(
-                backgroundColor: themeColor,
+                backgroundColor: themeColors[global.themeNo],
                 child: const Icon(Icons.search),
                 onPressed: () {
-                  if (bleWatch.btState) {
-                    globalWatch.showLoadingWidget(true);
+                  if (bt.btState) {
+                    global.showLoadingWidget(true);
                     FlutterBlue.instance.startScan(timeout: const Duration(seconds: 4));
-                    globalWatch.showLoadingWidget(false);
+                    global.showLoadingWidget(false);
                   } else {
-                    notifyUser(0, "Bluetooth is off");
+                    toast(0, "Bluetooth is off");
                   }
                 });
           }

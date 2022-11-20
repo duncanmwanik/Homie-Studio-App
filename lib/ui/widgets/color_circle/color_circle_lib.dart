@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:homie_ble/models/globals.dart';
+
+import '../../../methods/globals.dart';
+import '../toast/toast.dart';
 
 typedef ColorCodeBuilder = Widget Function(BuildContext context, Color color);
 
@@ -117,10 +119,10 @@ class CircleColorPickerState extends State<CircleColorPicker> with TickerProvide
             ),
             GestureDetector(
               onLongPress: () async {
-                if (globalWatch.selected.startsWith("0x")) {
-                  globalWatch.addToFavorite("color", globalWatch.selected);
+                if (global.selected.startsWith("0x")) {
+                  global.addToFavorite("color", global.selected);
                 } else {
-                  notifyUser(2, "Select a color from the circle!");
+                  toast(2, "Select a color from the circle!");
                 }
               },
               child: AnimatedBuilder(

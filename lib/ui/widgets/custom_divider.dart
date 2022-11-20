@@ -9,10 +9,10 @@ class CustomDivider extends StatefulWidget {
   String title;
 
   @override
-  _CustomDividerState createState() => _CustomDividerState();
+  CustomDividerState createState() => CustomDividerState();
 }
 
-class _CustomDividerState extends State<CustomDivider> {
+class CustomDividerState extends State<CustomDivider> {
   @override
   Widget build(BuildContext context) {
     return Row(children: <Widget>[

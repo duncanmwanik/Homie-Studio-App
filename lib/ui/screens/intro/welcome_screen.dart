@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
+  const WelcomeScreen({super.key});
+
   @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
+  WelcomeScreenState createState() => WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
       extendBody: true,
-      backgroundColor: Color(0xff101010),
+      backgroundColor: const Color(0xff101010),
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: <Widget>[
           SizedBox(
             height: h * 0.1,
@@ -42,39 +44,42 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                child: Text(
-                  "Quick Tutorial",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 16),
-                ),
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size(w * 0.8, h * 0.07),
-                    primary: Colors.amber, // background (button) color
-                    onPrimary: Colors.white, // foreground (text) color
+                    backgroundColor: Colors.amber, // background (button) color
                     shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.circular(30.0),
                     )),
                 onPressed: () => Navigator.pushNamed(context, '/help'),
+                child: const Text(
+                  "Quick Tutorial",
+                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900, fontSize: 16),
+                ),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    minimumSize: Size(w * 0.6, h * 0.07),
+                    backgroundColor: Colors.amber, // background (button) color
+                    foregroundColor: Colors.white, // foreground (text) color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    )),
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(context, "/home", (Route<dynamic> route) => false);
+                },
                 child: Row(
-                  children: [
+                  children: const [
                     Text(
                       "Skip",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 17),
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900, fontSize: 17),
                     ),
                     Icon(
                       Icons.arrow_forward,
@@ -82,17 +87,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ],
                 ),
-                style: ElevatedButton.styleFrom(
-                    minimumSize: Size(w * 0.6, h * 0.07),
-                    primary: Colors.amber, // background (button) color
-                    onPrimary: Colors.white, // foreground (text) color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    )),
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, "/home", (Route<dynamic> route) => false);
-                },
               ),
             ],
           ),

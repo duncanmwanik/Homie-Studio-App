@@ -1,18 +1,25 @@
+import 'dart:async';
+
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:homie_ble/models/ble.dart';
-import 'package:homie_ble/models/globals.dart';
-import 'package:homie_ble/ui/pageviews/button_assignment.dart';
-import 'package:homie_ble/ui/pageviews/favorites.dart';
-import 'package:homie_ble/ui/widgets/appbar.dart';
-import 'package:homie_ble/ui/widgets/info_banner.dart';
-import 'package:homie_ble/ui/widgets/bottom_navbar.dart';
-import 'package:homie_ble/ui/widgets/brightness_slider.dart';
-import 'package:homie_ble/ui/pageviews/color_options.dart';
-import 'package:homie_ble/ui/screens/device_picker.dart';
-import 'package:homie_ble/ui/widgets/drawer.dart';
-import 'package:homie_ble/ui/pageviews/effects_options.dart';
+
+import '../../../methods/ble.dart';
+import '../../../methods/navigation.dart';
+import '../../../methods/globals.dart';
+import 'pageviews/button.dart';
+import 'pageviews/color.dart';
+import 'pageviews/music.dart';
+import 'pageviews/pattern.dart';
+import 'pageviews/favorites.dart';
+import '../../theme/theme.dart';
+import 'appbar.dart';
+import 'bottom_navbar.dart';
+import '../../widgets/brightness_slider.dart';
+import 'drawer.dart';
+import '../../widgets/info_banner.dart';
+import '../../widgets/toast/toast.dart';
+import '../ble/device_picker.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,6 +29,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  Timer? timer;
+
   @override
   void initState() {
     super.initState();
@@ -29,19 +38,26 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     // Get current state of Bluetooth and listen for state changes
     FlutterBlue.instance.state.listen((event) {
       if (event == BluetoothState.on) {
-        bleWatch.updateBtState(true);
+        bt.updateBtState(true);
       }
       if (event == BluetoothState.off) {
-        bleWatch.updateBtState(false);
-        notifyUser(0, "Bluetooth is off");
+        bt.updateBtState(false);
+        toast(0, "Bluetooth is off");
       }
     });
 
     checkForConnectedDevices();
+
+    timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
+      if (bt.btState && !bt.connected) {
+        checkForConnectedDevices();
+      }
+    });
   }
 
   @override
   void dispose() {
+    timer?.cancel();
     super.dispose();
   }
 
@@ -52,12 +68,12 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     return Scaffold(
       extendBody: true,
-      backgroundColor: const Color(0xff101010),
+      backgroundColor: primaryColor,
       appBar: const MyAppBar(),
       drawer: const DrawerClass(),
       bottomNavigationBar: bottomNavigationBar(),
       body: ListView(
-        physics: const BouncingScrollPhysics(),
+        // shrinkWrap: true,
         children: [
           // bluetooth-off banner
           notConnectedBanner(),
@@ -77,7 +93,10 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 scrollDirection: Axis.horizontal,
                 children: [
                   // patterns
-                  effectOptions(),
+                  patternOptions(),
+
+                  // music
+                  musicOptions(),
 
                   // colors
                   colorOptions(),
@@ -91,6 +110,9 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
         ],
       ),
+      // floatingActionButton: FloatingActionButton(onPressed: () {
+      //   print(pageController.page);
+      // }),
     );
   }
 }

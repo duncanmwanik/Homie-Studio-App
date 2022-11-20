@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:homie_ble/models/ble.dart';
-import 'package:homie_ble/models/globals.dart';
-import 'package:homie_ble/ui/screens/devices_screen.dart';
 import 'package:provider/provider.dart';
+
+import '../../../state/ble.dart';
+import '../../../methods/ble.dart';
+import '../../../methods/globals.dart';
+import '../../theme/theme.dart';
+import '../../widgets/toast/toast.dart';
+import 'devices_screen.dart';
 
 class DevicePicker extends StatefulWidget {
   const DevicePicker({super.key});
@@ -15,7 +19,7 @@ class DevicePicker extends StatefulWidget {
 class DevicePickerState extends State<DevicePicker> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<BleModel>(builder: (context, ble, child) {
+    return Consumer<BleModel>(builder: (context, b, child) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
         child: Row(
@@ -23,15 +27,15 @@ class DevicePickerState extends State<DevicePicker> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              flex: 2,
+              // flex: 2,
               child: Padding(
                 padding: const EdgeInsets.only(right: 0),
                 child: ElevatedButton(
                   onPressed: () {
-                    if (ble.connected) {
-                      notifyUser(0, "Disconnect current device first...");
-                    } else if (!ble.btState) {
-                      notifyUser(0, "Bluetooth is off!");
+                    if (b.connected) {
+                      toast(2, "Disconnect current device first...");
+                    } else if (!b.btState) {
+                      toast(0, "Bluetooth is off!");
                     } else {
                       FlutterBlue.instance.startScan(timeout: const Duration(seconds: 4));
                       Navigator.push(
@@ -41,43 +45,34 @@ class DevicePickerState extends State<DevicePicker> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff202020), // background (button) color
-                      foregroundColor: Colors.white, // foreground (text) color
+                      backgroundColor: const Color(0xff202020),
+                      foregroundColor: themeColors[global.themeNo],
                       elevation: 1,
-                      minimumSize: Size(w * 0.5, 50),
+                      minimumSize: Size(w * 0.3, 45),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       )),
                   child: Text(
-                    ble.connected ? ble.device!.name : "Tap to connect a device",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    b.connected ? b.device!.name : "Tap to connect a lamp",
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),
               ),
             ),
-            ble.connected
+            b.connected
                 ? const SizedBox(
                     width: 10,
                   )
                 : const Center(),
             Visibility(
-              visible: ble.connected,
-              child: Expanded(
-                flex: 1,
-                child: ElevatedButton(
-                  onPressed: (() => disconnectFromDevice(ble.device)),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // background (button) color
-                      foregroundColor: Colors.white, // foreground (text) color
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      )),
-                  child: const Text(
-                    'Disconnect',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
+              visible: b.connected,
+              child: IconButton(
+                  onPressed: (() => disconnectFromDevice(b.device!)),
+                  splashRadius: 20,
+                  icon: const Icon(
+                    Icons.cancel,
+                    color: Colors.white,
+                  )),
             ),
           ],
         ),

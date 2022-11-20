@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:homie_ble/models/globals.dart';
+
+import '../../../methods/globals.dart';
 
 class HomieGallery extends StatefulWidget {
   const HomieGallery({super.key});

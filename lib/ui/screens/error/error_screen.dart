@@ -1,13 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../../methods/globals.dart';
+
 class ErrorScreen extends StatelessWidget {
   final FlutterErrorDetails errorDetails;
 
   const ErrorScreen({
-    Key? key,
+    super.key,
     required this.errorDetails,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +20,24 @@ class ErrorScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/logo.png'),
-            Text(
-              kDebugMode ? errorDetails.summary.toString() : 'Oups! Something went wrong!',
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: w * 0.2),
+              child: Image.asset('assets/images/logo.png'),
+            ),
+            const Text(
+              'Oops! Something went wrong!',
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                  color: kDebugMode ? Colors.red : Colors.black, fontWeight: FontWeight.bold, fontSize: 21),
+              style:
+                  TextStyle(color: kDebugMode ? Colors.red : Colors.white, fontWeight: FontWeight.bold, fontSize: 21),
             ),
             const SizedBox(height: 12),
-            const Text(
-              "We encountered an error and we've notified our engineering team about it. Sorry for the inconvenience caused.",
+            Text(
+              errorDetails.toString(),
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black, fontSize: 14),
+              style: const TextStyle(
+                  color: kDebugMode ? Colors.red : Colors.white, fontWeight: FontWeight.bold, fontSize: 21),
             ),
+            const SizedBox(height: 12),
           ],
         ),
       ),

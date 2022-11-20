@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:homie_ble/models/globals.dart';
-import 'package:homie_ble/models/objects/colors.dart';
-import 'package:homie_ble/ui/widgets/cards/card_color.dart';
-import 'package:homie_ble/ui/widgets/color_circle.dart';
-import 'package:homie_ble/ui/widgets/other_widgets.dart';
+
+import '../../../../models/colors.dart';
+import '../../../../methods/globals.dart';
+import '../../../theme/theme.dart';
+import '../../../widgets/cards/card_color.dart';
+import '../../../widgets/color_circle/color_circle.dart';
+import '../../../widgets/other_widgets.dart';
 
 Widget colorOptions() {
   return Column(
     children: [
       // ************************** COLOR CIRCLE ************************************
-      // colorCircle(),
       const ColorCircle(),
 
       // ************************** MAIN COLORS *************************************
-      titleText("MAIN COLORS"),
+      title("MAIN COLORS"),
 
       Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white10,
-            boxShadow: const [BoxShadow(offset: Offset(0, 0), color: Colors.black38, blurRadius: 4)]),
+        decoration: deco,
         child: GridView.count(
             crossAxisCount: 5,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
+            crossAxisSpacing: 6.0,
+            mainAxisSpacing: 6.0,
             shrinkWrap: true,
             physics: const ScrollPhysics(),
             children: List.generate(colorList.length, (index) {
@@ -34,7 +32,7 @@ Widget colorOptions() {
       ),
 
       SizedBox(
-        height: h * 0.025,
+        height: h * 0.1,
       ),
     ],
   );

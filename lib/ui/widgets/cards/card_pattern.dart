@@ -1,10 +1,10 @@
 // Pattern widget
 import 'package:flutter/material.dart';
-import 'package:homie_ble/models/ble.dart';
-import 'package:homie_ble/models/globals.dart';
-import 'package:homie_ble/models/objects/patterns.dart';
-import 'package:homie_ble/models/style.dart';
-import 'package:homie_ble/ui/widgets/other_widgets.dart';
+import '../../../models/patterns.dart';
+import '../../../methods/ble.dart';
+import '../../../methods/globals.dart';
+import '../../theme/theme.dart';
+import '../other_widgets.dart';
 
 Widget patternCard({required PatternObject pattern}) {
   return Stack(
@@ -12,15 +12,15 @@ Widget patternCard({required PatternObject pattern}) {
       ElevatedButton(
         onPressed: () {
           sendDataToDevice(pattern.code);
-          globalWatch.updateSelected(pattern.code);
+          global.updateSelected(pattern.code);
         },
         onLongPress: () {
-          globalWatch.addToFavorite("pattern", pattern.code);
+          global.addToFavorite("pattern", pattern.code);
         },
         style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
-            foregroundColor: themeColor,
-            padding: EdgeInsets.zero,
+            foregroundColor: themeColors[global.themeNo],
+            padding: const EdgeInsets.symmetric(horizontal: 1),
             minimumSize: const Size(double.infinity, double.infinity),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),

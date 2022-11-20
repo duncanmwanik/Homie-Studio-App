@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:homie_ble/models/ble.dart';
-import 'package:homie_ble/models/globals.dart';
-import 'package:homie_ble/models/style.dart';
-import 'package:homie_ble/models/objects/music.dart';
-import 'package:homie_ble/ui/widgets/dialogs/music_list_dialog.dart';
+import '../../../methods/globals.dart';
+import '../../../models/music.dart';
+import '../../../methods/ble.dart';
+import '../../theme/theme.dart';
+import '../dialogs/music_list_dialog.dart';
+import '../other_widgets.dart';
+import '../toast/toast.dart';
 
 Widget buttonVuCard(BuildContext context, int index) {
   return ElevatedButton(
@@ -13,7 +15,7 @@ Widget buttonVuCard(BuildContext context, int index) {
           backgroundColor: const Color(0xff202020),
           elevation: 10,
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
           ),
           builder: (BuildContext context) {
             return musicDialogList(context);
@@ -21,46 +23,35 @@ Widget buttonVuCard(BuildContext context, int index) {
         ).then((value) async {
           if (value != null) {
             try {
-              sendDataToDevice(value);
-              notifyUser(1, "Success! Key updated.");
+              sendDataToDevice("kv$index$value");
+              toast(1, "Success! Key updated.");
             } catch (e) {
               print(e);
-              notifyUser(0, "Failed to set Key value!");
+              toast(0, "Failed to set Key value!");
             }
           }
         });
       },
       style: ElevatedButton.styleFrom(
+          elevation: 0,
           padding: EdgeInsets.zero,
-          backgroundColor: Colors.white,
-          foregroundColor: themeColor,
+          backgroundColor: Colors.transparent,
+          foregroundColor: themeColors[global.themeNo],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),
           )),
       child: Column(
         children: [
+          numberedCircle(index+1),
           Expanded(
-            flex: 1,
-            child: Text(
-              "${index + 1}",
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
             child: SizedBox(
               width: double.infinity,
               child: Container(
                 decoration: const BoxDecoration(
-                  color: Color(0xff202020),
+                  color: Colors.white10,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25),
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20)),
                 ),
