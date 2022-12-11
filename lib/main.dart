@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // create syntax-shortening variables that point to their respective provider classes
     // just to make code shorter when watching the classes
+    // not yet sure if it's a good practice
     createProviderReferences(context: context);
 
     return const MaterialApp(

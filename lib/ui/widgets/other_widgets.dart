@@ -7,9 +7,16 @@ import '../theme/theme.dart';
 
 // ---------- most of the titles eey
 
-Widget title(String title) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 20),
+Widget title(String title, String? imagePath) {
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+    padding: const EdgeInsets.symmetric(vertical: 15),
+    width: double.infinity,
+    decoration: BoxDecoration(
+      image: imagePath == null ? null : DecorationImage(image: AssetImage(imagePath), fit: BoxFit.fill),
+      color: secondaryColor,
+      borderRadius: BorderRadius.circular(10),
+    ),
     child: Text(
       title,
       textAlign: TextAlign.center,
@@ -17,6 +24,29 @@ Widget title(String title) {
         fontSize: 16,
         fontWeight: FontWeight.bold,
         color: Colors.white,
+      ),
+    ),
+  );
+}
+
+Widget appbarText(String text) {
+  return Text(
+    text,
+    textAlign: TextAlign.center,
+    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+  );
+}
+
+Widget infoText(String text) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10, top: 20, right: 20, left: 20),
+    child: Text(
+      text,
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        color: Colors.white38,
       ),
     ),
   );
@@ -72,16 +102,16 @@ Widget notConnected() {
 
 // ---------- In favorites, when a fav list is empty
 Widget selectedOptionDot(String value) {
-  return Consumer<GlobalModel>(builder: (context, global, child) {
+  return Consumer<GlobalModel>(builder: (context, g, child) {
     return Visibility(
-      visible: global.selected == value,
+      visible: g.selected == value,
       child: Padding(
-        padding: const EdgeInsets.only(right: 3, top: 3),
+        padding: const EdgeInsets.only(right: 6, top: 6),
         child: Align(
             alignment: Alignment.topRight,
             child: Icon(
               Icons.brightness_1,
-              color: themeColors[global.themeNo],
+              color: themeColors[g.themeNo],
               size: 20,
             )),
       ),
@@ -109,4 +139,24 @@ Widget numberedCircle(int number) {
       ),
     ),
   );
+}
+
+// ---------- Beautiful divider
+Widget ruler(double width, double height, double top) {
+  return Consumer<GlobalModel>(
+      builder: (context, g, child) => Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: top),
+                height: height,
+                width: width,
+                decoration: BoxDecoration(
+                  color: themeColors[g.themeNo],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: null,
+              ),
+            ],
+          ));
 }

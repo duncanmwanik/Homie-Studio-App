@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:homie_ble/ui/screens/about/help_screen.dart';
 import 'package:provider/provider.dart';
 import '../../../state/globals.dart';
-import '../../theme/theme.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
@@ -21,7 +20,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   },
                   icon: Icon(
                     Icons.menu,
-                    color: themeColors[g.themeNo],
+                    color: Colors.white,
                   )),
               centerTitle: true,
               title: const Image(
@@ -39,7 +38,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                     },
                     icon: Icon(
                       Icons.settings,
-                      color: themeColors[g.themeNo],
+                      color: Colors.white,
                     ))
               ],
               backgroundColor: Colors.transparent,

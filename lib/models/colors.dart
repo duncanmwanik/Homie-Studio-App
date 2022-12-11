@@ -47,5 +47,5 @@ List<String> buttonColors = [
   "0x00ffff",
   "0xffa500",
   "0xff00ff",
-  "0x4b0082",
+  "0x4b0082"
 ];

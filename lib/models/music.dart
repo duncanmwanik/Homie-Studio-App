@@ -18,14 +18,4 @@ const List<MusicObject> musicList = <MusicObject>[
 
 Map<String, String> musicMap = {for (var music in musicList) music.code: music.title};
 
-List<String> buttonMusic = [
-  "v200",
-  "v201",
-  "v202",
-  "v203",
-  "v204",
-  "v205",
-  "v206",
-  "v207",
-  "v208",
-];
+List<String> buttonMusic = ["v200", "v201", "v202", "v203", "v204", "v205", "v206", "v207", "v208"];

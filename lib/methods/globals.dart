@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../state/ble.dart';
 import '../state/globals.dart';
-import '../ui/widgets/color_circle/color_circle_lib.dart';
+import '../ui/screens/home/pageviews/colors/color_circle/color_circle_lib.dart';
 
 // --------------------------------- -------------------------- ---------------------------------
 // --------------------------------- Global Variables & Methods ---------------------------------

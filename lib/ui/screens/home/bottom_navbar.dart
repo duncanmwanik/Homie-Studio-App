@@ -26,6 +26,7 @@ Widget bottomNavigationBar() {
       ],
       onTap: (index) async {
         await prefs.setInt("lastPage", index);
+        global.updateSelectedPage(index);
         pageController.jumpToPage(index);
       },
     );

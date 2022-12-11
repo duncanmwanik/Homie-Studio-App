@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:homie_ble/ui/theme/theme.dart';
 
 import '../data/shared_prefs.dart';
 import '../ui/widgets/toast/toast.dart';

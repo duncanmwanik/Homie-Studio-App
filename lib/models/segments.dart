@@ -1,0 +1,61 @@
+import 'colors.dart';
+
+Map<int, List<String>> segmentsMap = {
+  2: [colorList[0].hex, colorList[1].hex],
+  3: [
+    colorList[0].hex,
+    colorList[1].hex,
+    colorList[2].hex,
+  ],
+  4: [
+    colorList[0].hex,
+    colorList[1].hex,
+    colorList[2].hex,
+    colorList[3].hex,
+  ],
+  5: [
+    colorList[0].hex,
+    colorList[1].hex,
+    colorList[2].hex,
+    colorList[3].hex,
+    colorList[4].hex,
+  ],
+  6: [
+    colorList[0].hex,
+    colorList[1].hex,
+    colorList[2].hex,
+    colorList[3].hex,
+    colorList[4].hex,
+    colorList[5].hex,
+  ],
+  7: [
+    colorList[0].hex,
+    colorList[1].hex,
+    colorList[2].hex,
+    colorList[3].hex,
+    colorList[4].hex,
+    colorList[5].hex,
+    colorList[6].hex,
+  ],
+  8: [
+    colorList[0].hex,
+    colorList[1].hex,
+    colorList[2].hex,
+    colorList[3].hex,
+    colorList[4].hex,
+    colorList[5].hex,
+    colorList[6].hex,
+    colorList[7].hex,
+  ],
+  9: [
+    colorList[0].hex,
+    colorList[1].hex,
+    colorList[2].hex,
+    colorList[3].hex,
+    colorList[4].hex,
+    colorList[5].hex,
+    colorList[6].hex,
+    colorList[7].hex,
+    colorList[8].hex,
+  ],
+};

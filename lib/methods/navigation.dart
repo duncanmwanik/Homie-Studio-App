@@ -9,7 +9,7 @@ int lastPage = 0; // Saves the last navbar index
 PageController pageController = PageController(initialPage: lastPage);
 
 // Method to change pageview on horizontal swipes
-void changePageView(DragEndDetails drag) {
+void changePageViewOnSwipe(DragEndDetails drag) {
   if (drag.primaryVelocity == null) return;
   if (drag.primaryVelocity! < -300) {
     print(drag.primaryVelocity);

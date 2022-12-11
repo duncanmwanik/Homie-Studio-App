@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:homie_ble/data/shared_prefs.dart';
 import '../ui/widgets/toast/toast.dart';
@@ -22,13 +25,21 @@ sendDataToDevice(String dataString) async {
   }
 }
 
-disconnectFromDevice(BluetoothDevice device) async {
+disconnectFromSelectedDevice(BluetoothDevice device) async {
   try {
     await device.disconnect();
     bt.setDevice(null);
     bt.updateConnectionState(false);
   } catch (e) {
     errorPrint("disconnect-device", e);
+  }
+}
+
+disconnectFromOtherDevice(BluetoothDevice device) async {
+  try {
+    await device.disconnect();
+  } catch (e) {
+    errorPrint("disconnect-other-device", e);
   }
 }
 
@@ -48,10 +59,12 @@ discoverServices(BluetoothDevice d) async {
 }
 
 // ---------- Connecting to a device
-Future<bool> connectDevice(BluetoothDevice device) async {
+void connectDevice(
+  BuildContext context,
+  BluetoothDevice device,
+) async {
   try {
     global.showLoadingWidget(true);
-    await disconnectFromDevice(device);
     await device.connect();
     await discoverServices(device);
     await bt.setDevice(device);
@@ -68,11 +81,37 @@ Future<bool> connectDevice(BluetoothDevice device) async {
 
     global.showLoadingWidget(false);
 
-    return true;
+    Navigator.pop(context);
   } catch (e) {
     errorPrint("connect-device", e);
+    toast(0, "Failed to connect!");
     global.showLoadingWidget(false);
-    return false;
+  }
+}
+
+void selectDevice(BuildContext context, BluetoothDevice device) async {
+  try {
+    global.showLoadingWidget(true);
+    await discoverServices(device);
+    await bt.setDevice(device);
+    await bt.updateConnectionState(true);
+    await prefs.setString("last", device.name);
+
+    device.state.listen((event) async {
+      if (event == BluetoothDeviceState.disconnected) {
+        await bt.setDevice(null);
+        await bt.updateConnectionState(false);
+        toast(0, "Lost connection to lamp!");
+      }
+    });
+
+    global.showLoadingWidget(false);
+
+    Navigator.pop(context);
+  } catch (e) {
+    errorPrint("select-device", e);
+    toast(0, "Failed to connect!");
+    global.showLoadingWidget(false);
   }
 }
 

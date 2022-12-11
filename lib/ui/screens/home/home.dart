@@ -7,19 +7,20 @@ import 'package:flutter_blue/flutter_blue.dart';
 import '../../../methods/ble.dart';
 import '../../../methods/navigation.dart';
 import '../../../methods/globals.dart';
-import 'pageviews/button.dart';
-import 'pageviews/color.dart';
-import 'pageviews/music.dart';
-import 'pageviews/pattern.dart';
-import 'pageviews/favorites.dart';
+import 'brightness_slider.dart';
+import 'pageviews/button_set/button_view.dart';
+import 'pageviews/colors/color_view.dart';
+import 'pageviews/music/music_view.dart';
+import 'pageviews/patterns/pattern_view.dart';
+import 'pageviews/favorites/favorites_view.dart';
 import '../../theme/theme.dart';
 import 'appbar.dart';
 import 'bottom_navbar.dart';
-import '../../widgets/brightness_slider.dart';
 import 'drawer.dart';
-import '../../widgets/info_banner.dart';
+import 'info_banner.dart';
 import '../../widgets/toast/toast.dart';
-import '../ble/device_picker.dart';
+import '../devices/device_control.dart';
+import 'pageviews/patterns/pattern_color_fab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -67,52 +68,49 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     getDeviceSize(context);
 
     return Scaffold(
-      extendBody: true,
-      backgroundColor: primaryColor,
-      appBar: const MyAppBar(),
-      drawer: const DrawerClass(),
-      bottomNavigationBar: bottomNavigationBar(),
-      body: ListView(
-        // shrinkWrap: true,
-        children: [
-          // bluetooth-off banner
-          notConnectedBanner(),
+        extendBody: true,
+        backgroundColor: primaryColor,
+        appBar: const MyAppBar(),
+        drawer: const DrawerClass(),
+        bottomNavigationBar: bottomNavigationBar(),
+        body: ListView(
+          // shrinkWrap: true,
+          children: [
+            // bluetooth-off banner
+            notConnectedBanner(),
 
-          // device picker
-          const DevicePicker(),
+            // device picker
+            const DeviceControl(),
 
-          // brighness slider
-          brightnessSlider(),
+            // brighness slider
+            brightnessSlider(),
 
-          GestureDetector(
-            onHorizontalDragEnd: (details) => changePageView(details),
-            child: ExpandablePageView(
-                controller: pageController,
-                pageSnapping: false,
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  // patterns
-                  patternOptions(),
+            GestureDetector(
+              onHorizontalDragEnd: (details) => changePageViewOnSwipe(details),
+              child: ExpandablePageView(
+                  controller: pageController,
+                  pageSnapping: false,
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    // patterns
+                    patternOptions(context),
 
-                  // music
-                  musicOptions(),
+                    // music
+                    musicOptions(context),
 
-                  // colors
-                  colorOptions(),
+                    // colors
+                    colorOptions(context),
 
-                  // favorites
-                  favoritesPage(),
+                    // favorites
+                    favoritesPage(context),
 
-                  // button assignment
-                  buttonAssignment()
-                ]),
-          ),
-        ],
-      ),
-      // floatingActionButton: FloatingActionButton(onPressed: () {
-      //   print(pageController.page);
-      // }),
-    );
+                    // button assignment
+                    buttonAssignment()
+                  ]),
+            ),
+          ],
+        ),
+        floatingActionButton: patternColorFab());
   }
 }

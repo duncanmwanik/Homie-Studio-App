@@ -1,13 +1,14 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:homie_ble/ui/theme/theme.dart';
-import 'package:homie_ble/ui/widgets/toast/toast.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../methods/globals.dart';
 import '../../../state/globals.dart';
 import '../../widgets/back_button.dart';
+import '../../widgets/other_widgets.dart';
+import '../../widgets/toast/toast.dart';
+
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({super.key});
@@ -35,25 +36,6 @@ class HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
     animationController1.dispose();
   }
 
-  Widget ruler(double height) {
-    return Consumer<GlobalModel>(
-        builder: (context, g, child) => Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  height: height,
-                  width: 8,
-                  decoration: BoxDecoration(
-                    color: themeColors[g.themeNo],
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: null,
-                ),
-              ],
-            ));
-  }
-
   Widget themeOption(int value, Color color) {
     return Consumer<GlobalModel>(
         builder: (context, g, child) => Column(
@@ -65,9 +47,7 @@ class HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
                       shape: BoxShape.circle, color: g.themeNo == value ? Colors.white : Colors.transparent),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    g.updateThemeColor(value);
-                  },
+                  onPressed: (() => g.updateThemeColor(value)),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: color,
                       shape: RoundedRectangleBorder(
@@ -93,7 +73,7 @@ class HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
                 alignment: Alignment.topLeft,
                 child: backButton(context),
               ),
-              ruler(h * 0.05),
+              ruler(8, h * 0.05, 10),
             ],
           ),
           Padding(
@@ -151,7 +131,7 @@ class HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
               ),
             ],
           ),
-          ruler(h * 0.1),
+          ruler(8, h * 0.1, 10),
           const Padding(
             padding: EdgeInsets.only(top: 20, bottom: 5),
             child: Text(
