@@ -22,7 +22,7 @@ Widget bottomNavigationBar() {
         Icon(Icons.music_note, size: 30),
         Icon(Icons.palette_rounded, size: 30),
         Icon(Icons.favorite_rounded, size: 30),
-        Icon(Icons.settings_remote_rounded, size: 30),
+        Icon(Icons.group_work, size: 30),
       ],
       onTap: (index) async {
         await prefs.setInt("lastPage", index);

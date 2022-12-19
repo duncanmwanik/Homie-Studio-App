@@ -9,6 +9,7 @@ import 'state/globals.dart';
 import 'ui/screens/error/error_screen.dart';
 import 'ui/screens/home/home.dart';
 import 'methods/globals.dart';
+import 'ui/theme/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,8 +45,9 @@ class MyApp extends StatelessWidget {
     // not yet sure if it's a good practice
     createProviderReferences(context: context);
 
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: appTheme,
       title: 'Homie Studio',
       home: HomeScreen(),
     );

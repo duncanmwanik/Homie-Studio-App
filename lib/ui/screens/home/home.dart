@@ -49,11 +49,11 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     checkForConnectedDevices();
 
-    timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
-      if (bt.btState && !bt.connected) {
-        checkForConnectedDevices();
-      }
-    });
+    // timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
+    //   if (bt.btState && !bt.connected) {
+    //     checkForConnectedDevices();
+    //   }
+    // });
   }
 
   @override
@@ -86,7 +86,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             brightnessSlider(),
 
             GestureDetector(
-              onHorizontalDragEnd: (details) => changePageViewOnSwipe(details),
+              // onHorizontalDragEnd: (details) => changePageViewOnSwipe(details),
               child: ExpandablePageView(
                   controller: pageController,
                   pageSnapping: false,

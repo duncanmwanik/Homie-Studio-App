@@ -76,8 +76,8 @@ class DeviceControlState extends State<DeviceControl> {
                         borderRadius: BorderRadius.circular(30.0),
                       )),
                   child: Text(
-                    b.connected ? b.device!.name : "Tap to select a lamp",
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    b.connected ? b.device!.name : "Connect a lamp",
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white),
                   ),
                 ),
               ),

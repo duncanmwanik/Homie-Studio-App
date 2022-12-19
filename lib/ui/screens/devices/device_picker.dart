@@ -27,7 +27,7 @@ class DevicePickerState extends State<DevicePicker> {
         leading: backButton(context),
         title: const Text(
           'Select a lamp',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -68,7 +68,7 @@ class DevicePickerState extends State<DevicePicker> {
                                 color: Colors.black38,
                               ),
                               title: Text(s.device.name,
-                                  style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.w700)),
+                                  style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.w800)),
                               trailing: Visibility(
                                 visible: snapshot.data == BluetoothDeviceState.connected,
                                 child: Consumer<BleModel>(

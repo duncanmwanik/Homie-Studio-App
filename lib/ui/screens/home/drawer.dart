@@ -14,73 +14,49 @@ class DrawerClass extends StatefulWidget {
 }
 
 class DrawerClassState extends State<DrawerClass> {
+  Widget jobTile({required String title, required IconData icon, required GestureTapCallback onTap}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      color: themeColors[global.themeNo],
+      child: ListTile(
+          dense: true,
+          visualDensity: VisualDensity(vertical: 3),
+          onTap: onTap,
+          tileColor: themeColors[global.themeNo],
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          leading: Icon(
+            icon,
+            size: 25,
+            color: Colors.black,
+          ),
+          title: Text(title, style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.w800)),
+          trailing: Icon(
+            Icons.keyboard_arrow_right_rounded,
+            color: Colors.black,
+          )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Drawer(
         child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           decoration: const BoxDecoration(
-            color: Color(0xff151515),
+            color: primaryColor,
           ),
           child: ListView(
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.zero,
             children: <Widget>[
-              SizedBox(height: h * 0.05),
+              SizedBox(height: h * 0.15),
 
-              // ---------- Back button
-              IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.keyboard_arrow_left_rounded,
-                    size: 30,
-                    color: Colors.white,
-                  )),
-
-              SizedBox(height: h * 0.06),
-
-              // ---------- Bonga Lamp
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(w / 3, 50),
-                      backgroundColor: themeColors[global.themeNo],
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      )),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    "App Guide",
-                    style: TextStyle(fontWeight: FontWeight.w900, color: Colors.black),
-                  ),
-                ),
-              ),
+              // ---------- Master Play
+              jobTile(title: "Master Play", icon: Icons.device_hub, onTap: () {}),
 
               // ---------- About Homie Studio Kenya
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: Size(w / 3, 50),
-                      backgroundColor: themeColors[global.themeNo],
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      )),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    // Navigator.pushNamed(context, '/homie');
-                  },
-                  child: const Text(
-                    "Homie Studio",
-                    style: TextStyle(fontWeight: FontWeight.w900, color: Colors.black),
-                  ),
-                ),
-              ),
+              jobTile(title: "App Guide", icon: Icons.help, onTap: () {}),
             ],
           ),
         ),

@@ -6,7 +6,6 @@ import '../../methods/globals.dart';
 import '../theme/theme.dart';
 
 // ---------- most of the titles eey
-
 Widget title(String title, String? imagePath) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
@@ -106,7 +105,7 @@ Widget selectedOptionDot(String value) {
     return Visibility(
       visible: g.selected == value,
       child: Padding(
-        padding: const EdgeInsets.only(right: 6, top: 6),
+        padding: const EdgeInsets.only(right: 0, top: 0),
         child: Align(
             alignment: Alignment.topRight,
             child: Icon(

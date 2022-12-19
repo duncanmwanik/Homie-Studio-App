@@ -5,10 +5,10 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../methods/globals.dart';
 import '../../../state/globals.dart';
+import '../../theme/theme.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/other_widgets.dart';
 import '../../widgets/toast/toast.dart';
-
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({super.key});
@@ -51,7 +51,7 @@ class HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: color,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(15.0),
                       )),
                   child: null,
                 ),
@@ -77,7 +77,7 @@ class HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
             ],
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: w * 0.2),
+            padding: EdgeInsets.symmetric(horizontal: w * 0.2, vertical: 10),
             child: GestureDetector(
               onTap: (() => animationController1.forward(from: 0)),
               child: AnimatedBuilder(
@@ -141,10 +141,10 @@ class HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
             ),
           ),
           Container(
-            width: w,
-            color: Colors.white10,
-            margin: const EdgeInsets.only(bottom: 20),
+            // width: w,
+            margin: const EdgeInsets.only(left: 5, right: 5, bottom: 20),
             padding: const EdgeInsets.symmetric(vertical: 10),
+            decoration: deco,
             child: Wrap(
               alignment: WrapAlignment.spaceAround,
               children: [
@@ -156,6 +156,23 @@ class HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
               ],
             ),
           ),
+          ListTile(
+              dense: true,
+              visualDensity: VisualDensity(vertical: 3),
+              onTap: () {},
+              tileColor: themeColors[global.themeNo],
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              leading: Icon(
+                Icons.device_hub,
+                size: 30,
+                color: Colors.black,
+              ),
+              title:
+                  Text("Master Play", style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.w700)),
+              trailing: Icon(
+                Icons.keyboard_arrow_right_rounded,
+                color: Colors.black,
+              )),
           SizedBox(
             height: h * 0.01,
           ),
