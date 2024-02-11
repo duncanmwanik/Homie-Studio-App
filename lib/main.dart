@@ -1,35 +1,26 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:homie_ble/methods/navigation.dart';
+import 'package:homie_ble/_providers/_provider_variables.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'common_variables/state_providers.dart';
 import 'data/shared_prefs.dart';
-import 'state/ble.dart';
-import 'state/globals.dart';
-import 'ui/screens/error/error_screen.dart';
-import 'ui/screens/home/home.dart';
-import 'methods/globals.dart';
-import 'ui/theme/theme.dart';
+import 'logic/state_logic.dart';
+import 'theme/theme.dart';
+// import 'ui/error/error_screen.dart';
+import 'ui/home/home_screen.dart';
 
 Future<void> main() async {
+  //
   WidgetsFlutterBinding.ensureInitialized();
 
-  // get shared prefs instance globally
-  prefs = await SharedPreferences.getInstance();
-
-  // get last selected screen
-  lastPage = prefs.getInt("lastPage") ?? 2;
-
-  ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-    return ErrorScreen(errorDetails: errorDetails);
-  };
+  //set shared prefs instance globally
+  sharedPrefs = await SharedPreferences.getInstance();
 
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => GlobalModel()),
-        ChangeNotifierProvider(create: (context) => BleModel()),
-      ],
+      providers: providerList,
       child: const MyApp(),
     ),
   );
@@ -40,16 +31,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // create syntax-shortening variables that point to their respective provider classes
-    // just to make code shorter when watching the classes
-    // not yet sure if it's a good practice
-    createProviderReferences(context: context);
+    createProviderWatchReferences(context: context);
+
+    setGlobalProviderX(context);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: appTheme,
+      theme: customAppTheme,
       title: 'Homie Studio',
       home: HomeScreen(),
+      builder: BotToastInit(),
+      navigatorObservers: [BotToastNavigatorObserver()],
     );
   }
 }
