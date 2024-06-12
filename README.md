@@ -1,6 +1,6 @@
 # Homie Studio App
 
-A Flutter app to manage all BLE-enabled products created by Homie Studio Kenya.
+A Flutter app to manage all BLE-enabled products created for Homie Studio Kenya.
 
 ## Notes
 
