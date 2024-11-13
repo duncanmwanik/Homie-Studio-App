@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../_theme/spacing.dart';
 import '../../_models/effect.dart';
 import '../hub/_w/brightness.dart';
+import '../hub/_w/sensitivity.dart';
 import 'music.dart';
-import 'sensitivity.dart';
 import 'var/music.dart';
 
 class MusicView extends StatelessWidget {

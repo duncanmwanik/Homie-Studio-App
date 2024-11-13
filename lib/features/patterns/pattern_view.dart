@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../_theme/spacing.dart';
 import '../../_models/effect.dart';
 import '../hub/_w/brightness.dart';
+import '../hub/_w/speed.dart';
 import 'pattern.dart';
-import 'speed.dart';
 import 'var/patterns.dart';
 
 class PatternView extends StatelessWidget {

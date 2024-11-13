@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../_theme/spacing.dart';
-import '../../_theme/variables.dart';
-import '../../_widgets/others/icons.dart';
-import '../ble/ble_service.dart';
-import '../hub/state/hub.dart';
+import '../../../_theme/spacing.dart';
+import '../../../_theme/variables.dart';
+import '../../../_widgets/others/icons.dart';
+import '../../ble/ble_service.dart';
+import '../state/hub.dart';
 
-class SpeedSlider extends StatelessWidget {
-  const SpeedSlider({super.key});
+class SensitivitySlider extends StatelessWidget {
+  const SensitivitySlider({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class SpeedSlider extends StatelessWidget {
           padding: padL('lrb'),
           child: Row(
             children: [
-              AppIcon(Icons.bolt, tiny: true, faded: true),
+              AppIcon(Icons.speed, tiny: true, faded: true),
               Expanded(
                 child: SizedBox(
                   height: 20,
@@ -33,9 +33,9 @@ class SpeedSlider extends StatelessWidget {
                       thumbColor: white,
                       activeColor: styler.accentColor(),
                       inactiveColor: styler.textColor(extraFaded: true),
-                      value: hub.speed.toDouble(),
-                      onChanged: (value) => hub.setSpeed(value.toInt()),
-                      onChangeEnd: (value) => bleService.sendData('s${value.toInt()}'),
+                      value: hub.sensitivity.toDouble(),
+                      onChanged: (value) => hub.setSensitivity(value.toInt()),
+                      onChangeEnd: (value) => bleService.sendData('v${value.toInt()}'),
                       min: -2,
                       max: 2,
                     ),
