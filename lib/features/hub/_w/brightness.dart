@@ -16,7 +16,7 @@ class BrightnessSlider extends StatelessWidget {
       return ConstrainedBox(
         constraints: BoxConstraints(maxWidth: webMaxWidth),
         child: Padding(
-          padding: padSL('b'),
+          padding: padL('lrb'),
           child: Row(
             children: [
               AppIcon(Icons.light_mode, tiny: true, faded: true),
@@ -35,7 +35,7 @@ class BrightnessSlider extends StatelessWidget {
                       inactiveColor: styler.textColor(extraFaded: true),
                       value: hub.brightness.toDouble(),
                       onChanged: (value) => hub.setBrightness(value.toInt()),
-                      onChangeEnd: (value) => bleService.sendMessageToDevice('b${value.toInt()}'),
+                      onChangeEnd: (value) => bleService.sendData('b${value.toInt()}'),
                       min: 0,
                       max: 100,
                     ),

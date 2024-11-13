@@ -12,30 +12,28 @@ class ColorsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          //
-          BrightnessSlider(),
-          //
-          ColorCircle('0x'),
-          //
-          Flexible(
-            child: Padding(
-              padding: padSL('tb'),
-              child: Wrap(
-                spacing: smallWidth(),
-                runSpacing: smallWidth(),
-                children: [
-                  for (Effect effect in hubColors) ColorItem(effect: effect),
-                ],
-              ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        //
+        BrightnessSlider(),
+        //
+        ColorCircle('0x'),
+        //
+        Flexible(
+          child: Padding(
+            padding: padSL('tb'),
+            child: Wrap(
+              spacing: smallWidth(),
+              runSpacing: smallWidth(),
+              children: [
+                for (Effect effect in hubColors) ColorItem(effect: effect),
+              ],
             ),
-          )
-          //
-        ],
-      ),
+          ),
+        )
+        //
+      ],
     );
   }
 }

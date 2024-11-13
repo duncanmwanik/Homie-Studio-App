@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:universal_ble/universal_ble.dart';
 
 import '../../_helpers/debug.dart';
 import '../../_providers/_providers.dart';
@@ -8,90 +8,85 @@ import '../../_services/hive/local_storage_service.dart';
 import '../../_widgets/others/toast.dart';
 import 'permissions.dart';
 
-BleService bleService = BleService();
-// String serviceUuid = '4faf';
-String characteristicUuid = '0000';
+Ble bleService = Ble();
+String serviceUuid = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
+String characteristicUuid = 'beb54800-36e1-4688-b7f5-ea07361b26a8';
 
-class BleService {
-  var ble = FlutterBluePlus;
-
-  Future<void> connectToBoard(BluetoothDevice device) async {
+class Ble {
+  Future<void> connectDevice(BleDevice device) async {
     try {
       // connect to board
-      await device.connect();
+      await UniversalBle.connect(device.deviceId);
+
       // discover services
-      List<BluetoothService> services = await device.discoverServices();
+      List<BleService> services = await UniversalBle.discoverServices(device.deviceId);
       for (var service in services) {
         for (var characteristic in service.characteristics) {
           if (characteristic.uuid.toString() == characteristicUuid) {
-            state.ble.updateConnectedDeviceXtics(characteristic.lastValueStream, characteristic);
+            state.ble.updateConnectedDeviceXtics(null, characteristic);
           }
         }
       }
       //
       state.ble.updateConnectedDevice(device);
-      await globalBox.put('lastBleDevice', device.remoteId.str);
-      //
-      device.connectionState.listen((event) async {
-        if (event == BluetoothConnectionState.disconnected) {
-          showToast(0, 'Disconnected from ${device.platformName}.');
-          state.ble.updateConnectedDevice(null);
-        }
-      });
-      //
-      //
+      await globalBox.put('lastBleDevice', device.deviceId);
+
+      // Get connection/disconnection updates
+      UniversalBle.onConnectionChange = (String deviceId, bool isConnected, String? error) {
+        logError('OnConnectionChange ${device.name}, $deviceId, $isConnected Error: $error', error);
+        showToast(0, 'Disconnected from ${device.name}.');
+      };
     } catch (e) {
-      logError('connect-device', e);
-      showToast(0, 'Could not connect to ${device.platformName}.');
+      logError('connectDevice', e);
+      showToast(0, 'Could not connect to ${device.name}.');
     }
   }
 
-  Future<void> disconnectDevice(BluetoothDevice device) async {
+  Future<void> disconnectDevice(BleDevice device) async {
     try {
-      await device.disconnect();
+      await UniversalBle.disconnect(device.deviceId);
       state.ble.updateConnectedDevice(null);
     } catch (e) {
       state.ble.updateConnectedDevice(null);
-      logError('disconnect-device', e);
+      logError('disconnectDevice', e);
     }
   }
 
-  Future<void> turnOnBT() async {
-    try {
-      if (FlutterBluePlus.adapterStateNow != BluetoothAdapterState.on) {
-        await FlutterBluePlus.turnOn();
-      }
-    } catch (e) {
-      logError('turn-on-bt', e);
-    }
-  }
-
-  Future<void> scanForDevices() async {
+  Future<void> scanDevices() async {
     try {
       await checkBlePermissions();
-      await turnOnBT();
-      await FlutterBluePlus.startScan();
+      // Start scan only if Bluetooth is powered on
+      if (await UniversalBle.getBluetoothAvailabilityState() == AvailabilityState.poweredOff) {
+        showToast(2, 'Turn on Bluetooth first.');
+        return;
+      }
+      UniversalBle.onScanResult = (bleDevice) async {
+        await connectDevice(bleDevice);
+      };
+      UniversalBle.startScan(scanFilter: ScanFilter(withServices: [serviceUuid]));
+      // UniversalBle.getSystemDevices(withServices: [serviceUuid]);
+      UniversalBle.stopScan();
     } catch (e) {
-      logError('scan-for-devices', e);
+      logError('scanDevices', e);
     }
   }
 
-  bool isConnectedDevice(BluetoothDevice device) {
+  bool isConnectedDevice(BleDevice device) {
     if (state.ble.connectedDevice != null) {
-      return state.ble.connectedDevice!.remoteId == device.remoteId;
+      return state.ble.connectedDevice!.deviceId == device.deviceId;
     } else {
       return false;
     }
   }
 
-  void sendMessageToDevice(String message) async {
+  void sendData(String message) async {
     try {
       if (state.ble.connectedDevice != null) {
-        List<int> data = utf8.encode(message);
-        await state.ble.characteristic!.write(data);
+        BleDevice device = state.ble.connectedDevice!;
+        await UniversalBle.writeValue(device.deviceId, '', '', utf8.encode(message), BleOutputProperty.withoutResponse);
       }
     } catch (e) {
-      logError('send-data-device', e);
+      logError('sendData', e);
     }
   }
 }

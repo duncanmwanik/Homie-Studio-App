@@ -16,7 +16,7 @@ class SpeedSlider extends StatelessWidget {
       return ConstrainedBox(
         constraints: BoxConstraints(maxWidth: webMaxWidth),
         child: Padding(
-          padding: padSL('b'),
+          padding: padL('lrb'),
           child: Row(
             children: [
               AppIcon(Icons.bolt, tiny: true, faded: true),
@@ -35,7 +35,7 @@ class SpeedSlider extends StatelessWidget {
                       inactiveColor: styler.textColor(extraFaded: true),
                       value: hub.speed.toDouble(),
                       onChanged: (value) => hub.setSpeed(value.toInt()),
-                      onChangeEnd: (value) => bleService.sendMessageToDevice('s${value.toInt()}'),
+                      onChangeEnd: (value) => bleService.sendData('s${value.toInt()}'),
                       min: -2,
                       max: 2,
                     ),

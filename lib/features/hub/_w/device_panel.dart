@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../_providers/_providers.dart';
 import '../../../_theme/spacing.dart';
 import '../../../_theme/variables.dart';
 import '../../../_widgets/buttons/button.dart';
 import '../../../_widgets/others/icons.dart';
 import '../../../_widgets/others/text.dart';
+import '../../ble/ble_service.dart';
 import '../../ble/state/ble.dart';
-import 'dialog_connect.dart';
 
 class DevicePanel extends StatelessWidget {
   const DevicePanel({super.key});
@@ -17,26 +18,41 @@ class DevicePanel extends StatelessWidget {
     return Consumer<BleProvider>(builder: (context, ble, child) {
       bool isConnected = ble.isConnected;
 
-      return AppButton(
-        onPressed: () => showConnectDeviceDialog(),
-        color: styler.appColor(0.8),
-        radius: borderRadiusTinySmall,
-        showBorder: true,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: AppText(
-                text: isConnected ? ble.connectedDevice?.platformName ?? 'Device' : 'Connect a device',
-                overflow: TextOverflow.ellipsis,
-              ),
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          //
+          AppButton(
+            onPressed: () => bleService.scanDevices(),
+            srp: true,
+            radius: borderRadiusCrazy,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: AppText(
+                    text: isConnected ? ble.connectedDevice?.name ?? 'Device' : 'Connect Device',
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                mpw(),
+                if (!isConnected) AppIcon(Icons.arrow_forward, size: normal, faded: true),
+                if (isConnected) AppIcon(Icons.check, size: normal, color: styler.accentColor()),
+                //
+              ],
             ),
-            spw(),
-            if (!isConnected) AppIcon(Icons.arrow_forward, size: normal, faded: true),
-            if (isConnected) AppIcon(Icons.check, size: normal, color: styler.accentColor()),
-            //
-          ],
-        ),
+          ),
+          //
+          if (isConnected)
+            AppButton(
+              onPressed: () => bleService.disconnectDevice(state.ble.connectedDevice!),
+              margin: padS('l'),
+              noStyling: true,
+              srp: true,
+              child: AppIcon(Icons.close, faded: true),
+            ),
+          //
+        ],
       );
     });
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:universal_ble/universal_ble.dart';
 
 import '../../_theme/spacing.dart';
 import '../../_theme/variables.dart';
@@ -12,7 +12,7 @@ import 'ble_service.dart';
 class ScannedDevice extends StatefulWidget {
   const ScannedDevice({super.key, required this.device});
 
-  final BluetoothDevice device;
+  final BleDevice device;
 
   @override
   State<ScannedDevice> createState() => _ScannedDeviceState();
@@ -23,18 +23,18 @@ class _ScannedDeviceState extends State<ScannedDevice> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<BluetoothConnectionState>(
-        stream: widget.device.connectionState,
-        initialData: BluetoothConnectionState.disconnected,
+    return FutureBuilder<BleConnectionState>(
+        future: widget.device.connectionState,
+        initialData: BleConnectionState.disconnected,
         builder: (c, snapshot) {
-          bool isConnectedDevice = snapshot.data == BluetoothConnectionState.connected;
+          bool isConnectedDevice = snapshot.data == BleConnectionState.connected;
 
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 3),
             child: AppButton(
               onPressed: () async {
                 setState(() => isConnecting = true);
-                await bleService.connectToBoard(widget.device);
+                await bleService.connectDevice(widget.device);
                 setState(() => isConnecting = false);
               },
               radius: borderRadiusSmall,
@@ -45,9 +45,7 @@ class _ScannedDeviceState extends State<ScannedDevice> {
                   //
                   AppIcon(Icons.lightbulb_outline, tiny: true, faded: true),
                   spw(),
-                  Expanded(child: AppText(size: normal, text: widget.device.platformName)),
-                  //
-
+                  Expanded(child: AppText(size: normal, text: widget.device.name ?? 'Unknown')),
                   //
                   isConnecting
                       ? AppLoader(color: styler.accent)

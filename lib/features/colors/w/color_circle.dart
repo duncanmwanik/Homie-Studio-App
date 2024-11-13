@@ -28,7 +28,7 @@ class _ColorCircleState extends State<ColorCircle> {
           setState(() {
             controller.color = color;
           });
-          bleService.sendMessageToDevice("${widget.start}${color.value.toRadixString(16).substring(2)}");
+          bleService.sendData("${widget.start}${color.value.toRadixString(16).substring(2)}");
         },
         onEnded: (color) {
           if (widget.start.startsWith("0x")) {

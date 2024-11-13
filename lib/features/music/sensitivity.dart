@@ -16,7 +16,7 @@ class SensitivitySlider extends StatelessWidget {
       return ConstrainedBox(
         constraints: BoxConstraints(maxWidth: webMaxWidth),
         child: Padding(
-          padding: padSL('b'),
+          padding: padL('lrb'),
           child: Row(
             children: [
               AppIcon(Icons.speed, tiny: true, faded: true),
@@ -35,7 +35,7 @@ class SensitivitySlider extends StatelessWidget {
                       inactiveColor: styler.textColor(extraFaded: true),
                       value: hub.sensitivity.toDouble(),
                       onChanged: (value) => hub.setSensitivity(value.toInt()),
-                      onChangeEnd: (value) => bleService.sendMessageToDevice('v${value.toInt()}'),
+                      onChangeEnd: (value) => bleService.sendData('v${value.toInt()}'),
                       min: -2,
                       max: 2,
                     ),

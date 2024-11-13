@@ -58,7 +58,7 @@ const IconData colorsIcon = FontAwesomeIcons.palette;
 const IconData patternsIcon = FontAwesomeIcons.fire;
 const IconData musicIcon = FontAwesomeIcons.music;
 const IconData mixerIcon = FontAwesomeIcons.mixer;
-const IconData favoritesIcon = FontAwesomeIcons.heart;
+const IconData favoritesIcon = FontAwesomeIcons.solidHeart;
 
 const IconData pinIcon = Icons.push_pin_rounded;
 const IconData unpinIcon = Icons.push_pin_outlined;

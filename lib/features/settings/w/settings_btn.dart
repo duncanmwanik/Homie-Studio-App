@@ -11,7 +11,7 @@ class SettingsButton extends StatelessWidget {
     return AppButton(
       leading: Icons.settings,
       noStyling: true,
-      isRound: true,
+      isSquare: true,
       onPressed: () => showSettingsBottomSheet(),
     );
   }

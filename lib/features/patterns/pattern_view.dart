@@ -12,29 +12,27 @@ class PatternView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          //
-          BrightnessSlider(),
-          SpeedSlider(),
-          //
-          Flexible(
-            child: Padding(
-              padding: padSL('tb'),
-              child: Wrap(
-                spacing: smallWidth(),
-                runSpacing: smallWidth(),
-                children: [
-                  for (Effect effect in hubPatterns) PatternItem(effect: effect),
-                ],
-              ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        //
+        BrightnessSlider(),
+        SpeedSlider(),
+        //
+        Flexible(
+          child: Padding(
+            padding: padSL('tb'),
+            child: Wrap(
+              spacing: smallWidth(),
+              runSpacing: smallWidth(),
+              children: [
+                for (Effect effect in hubPatterns) PatternItem(effect: effect),
+              ],
             ),
           ),
-          //
-        ],
-      ),
+        ),
+        //
+      ],
     );
   }
 }

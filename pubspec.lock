@@ -65,6 +65,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.12"
+  bluez:
+    dependency: transitive
+    description:
+      name: bluez
+      sha256: "203a1924e818a9dd74af2b2c7a8f375ab8e5edf0e486bba8f90a0d8a17ed9fce"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -201,6 +209,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.6.0"
+  dbus:
+    dependency: transitive
+    description:
+      name: dbus
+      sha256: "365c771ac3b0e58845f39ec6deebc76e3276aa9922b0cc60840712094d9047ac"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.10"
   device_info_plus:
     dependency: transitive
     description:
@@ -422,14 +438,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_blue_plus:
-    dependency: "direct main"
-    description:
-      name: flutter_blue_plus
-      sha256: "45ccee4a838f321c301b6130fbf3de28f07a2d6334a69eb5e13b6f83683080e0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.33.6"
   flutter_cache_manager:
     dependency: "direct main"
     description:
@@ -577,7 +585,7 @@ packages:
     source: hosted
     version: "4.0.2"
   flutter_web_bluetooth:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_web_bluetooth
       sha256: fcd03e2e5f82edcedcbc940f1b6a0635a50757374183254f447640886c53208e
@@ -1202,6 +1210,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  universal_ble:
+    dependency: "direct main"
+    description:
+      name: universal_ble
+      sha256: "4d8f48dd09dbaf9c5b079e77924df78cc7c276d634183919160314edc22d7c76"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.13.0"
   universal_io:
     dependency: transitive
     description:

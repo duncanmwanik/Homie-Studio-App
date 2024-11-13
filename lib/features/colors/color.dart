@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:provider/provider.dart';
 
 import '../../_models/effect.dart';
-import '../../_providers/_providers.dart';
-import '../../_theme/breakpoints.dart';
 import '../../_theme/variables.dart';
 import '../../_widgets/buttons/button.dart';
 import '../../_widgets/others/icons.dart';
 import '../ble/ble_service.dart';
+import '../hub/state/hub.dart';
 
 class ColorItem extends StatelessWidget {
   const ColorItem({super.key, required this.effect});
@@ -15,17 +14,25 @@ class ColorItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isSelected = effect.code == state.hub.selectedEffect;
+    return Consumer<HubProvider>(builder: (context, hub, widget) {
+      bool isSelected = effect.code == hub.selectedEffect;
 
-    return AppButton(
-      onPressed: () {
-        state.hub.setEffect(effect.code);
-        bleService.sendMessageToDevice(effect.code);
-      },
-      height: 50,
-      width: isPhone() ? 30.w : 100,
-      color: effect.color,
-      child: AppIcon(Icons.circle, color: isSelected ? white : transparent, size: small),
-    );
+      return AppButton(
+        onPressed: () {
+          hub.setEffect(effect.code);
+          bleService.sendData(effect.code);
+        },
+        height: 40,
+        width: 100,
+        color: effect.color,
+        child: AppIcon(Icons.check_circle,
+            color: isSelected
+                ? effect.title == 'White'
+                    ? black
+                    : white
+                : transparent,
+            size: normal),
+      );
+    });
   }
 }

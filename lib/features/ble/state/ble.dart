@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:universal_ble/universal_ble.dart';
 
 class BleProvider with ChangeNotifier {
   //--------------------------
 
   bool isConnected = false;
 
-  BluetoothDevice? connectedDevice;
+  BleDevice? connectedDevice;
   Stream<List<int>>? stream;
-  BluetoothCharacteristic? characteristic;
+  BleCharacteristic? characteristic;
 
-  void updateConnectedDevice(BluetoothDevice? device) {
+  void updateConnectedDevice(BleDevice? device) {
     connectedDevice = device;
     isConnected = device != null;
     notifyListeners();
@@ -18,7 +18,7 @@ class BleProvider with ChangeNotifier {
 
   // ------------------------
 
-  void updateConnectedDeviceXtics(Stream<List<int>>? s, BluetoothCharacteristic? c) {
+  void updateConnectedDeviceXtics(Stream<List<int>>? s, BleCharacteristic? c) {
     stream = s;
     characteristic = c;
     notifyListeners();

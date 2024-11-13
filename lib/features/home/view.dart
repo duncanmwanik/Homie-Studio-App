@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../_theme/breakpoints.dart';
 import '../../_theme/spacing.dart';
-import '../../_theme/variables.dart';
 import '../../_variables/features.dart';
 import '../colors/colors_view.dart';
 import '../favorites/favorite.dart';
@@ -17,25 +15,22 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
-      margin: isSmallPC() ? padM('rb') : noPadding,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadiusSmall),
+      child: SingleChildScrollView(
+        padding: padM(),
+        child: view.isColors()
+            ? ColorsView()
+            : view.isPatterns()
+                ? PatternView()
+                : view.isMusic()
+                    ? MusicView()
+                    : view.isMixer()
+                        ? MixerView()
+                        : view.isFavorites()
+                            ? FavoriteView()
+                            : ColorsView(),
       ),
-      //
-      child: view.isColors()
-          ? ColorsView()
-          : view.isPatterns()
-              ? PatternView()
-              : view.isMusic()
-                  ? MusicView()
-                  : view.isMixer()
-                      ? MixerView()
-                      : view.isFavorites()
-                          ? FavoriteView()
-                          : ColorsView(),
-      //
     );
   }
 }

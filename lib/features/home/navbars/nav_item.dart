@@ -13,8 +13,8 @@ import '../_helpers/go_to_view.dart';
 
 Widget navItem(dynamic icon, String type, {double? size, Function()? onPressed}) {
   bool isSelected = state.views.view == type;
-  bool faded = !isSelected && !isDark();
-  bool extraFaded = !isSelected && isDark();
+  bool faded = (!isSelected && !isDark() || (!isSelected && isImage()));
+  bool extraFaded = !isSelected && isDark() && !isImage();
 
   return AppButton(
     onPressed: onPressed ?? () => goToView(type),
