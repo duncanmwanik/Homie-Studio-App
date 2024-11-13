@@ -10,8 +10,7 @@ import 'color_circle_lib.dart';
 CircleColorPickerController controller = CircleColorPickerController();
 
 class ColorCircle extends StatefulWidget {
-  const ColorCircle(this.start, {super.key});
-  final String start;
+  const ColorCircle({super.key});
 
   @override
   State<ColorCircle> createState() => _ColorCircleState();
@@ -28,15 +27,13 @@ class _ColorCircleState extends State<ColorCircle> {
           setState(() {
             controller.color = color;
           });
-          bleService.sendData("${widget.start}${color.value.toRadixString(16).substring(2)}");
+          bleService.sendData("0x${color.value.toRadixString(16).substring(2)}");
         },
         onEnded: (color) {
-          if (widget.start.startsWith("0x")) {
-            state.hub.setEffect("0x${color.value.toRadixString(16).substring(2)}");
-          }
+          state.hub.setEffect("0x${color.value.toRadixString(16).substring(2)}");
         },
         size: const Size(230, 230),
-        strokeWidth: 15,
+        strokeWidth: 2,
         thumbSize: 30,
         initialColor: Colors.amber,
       ),

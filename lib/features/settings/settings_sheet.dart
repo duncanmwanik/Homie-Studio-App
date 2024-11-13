@@ -11,7 +11,6 @@ import '../../_widgets/others/text.dart';
 import '../../_widgets/sheets/bottom_sheet.dart';
 import 'w/account_details.dart';
 import 'w/account_support.dart';
-import 'w/theme_settings.dart';
 
 Future<void> showSettingsBottomSheet() async {
   await showAppBottomSheet(
@@ -39,8 +38,6 @@ Future<void> showSettingsBottomSheet() async {
                   //
                   sph(),
                   AccountDetails(),
-                  mph(),
-                  ThemeSettings(),
                   mph(),
                   AccountSupport(),
                   AboutApp(),

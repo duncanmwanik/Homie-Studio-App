@@ -21,7 +21,6 @@ class ColorButton extends StatelessWidget {
       menuItems: menuItems,
       isSquare: true,
       noStyling: true,
-      isDropDown: true,
       height: isSmall ? null : 23,
       child: isSmall
           ? const AppIcon(Icons.color_lens_rounded, size: 16, faded: true)

@@ -18,7 +18,7 @@ class ColorsView extends StatelessWidget {
         //
         BrightnessSlider(),
         //
-        ColorCircle('0x'),
+        ColorCircle(),
         //
         Flexible(
           child: Padding(

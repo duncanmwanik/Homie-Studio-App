@@ -42,7 +42,6 @@ class AppButton extends StatelessWidget {
     this.slp = false,
     this.srp = false,
     this.svp = false,
-    this.isDropDown = false,
     this.dryWidth = false,
     this.noStyling = false,
     this.expand = false,
@@ -89,7 +88,6 @@ class AppButton extends StatelessWidget {
   final bool slp;
   final bool srp;
   final bool svp;
-  final bool isDropDown;
   final bool dryWidth;
   final bool noStyling;
   final bool expand;
@@ -164,9 +162,9 @@ class AppButton extends StatelessWidget {
                       ? const EdgeInsets.all(6)
                       : EdgeInsets.only(
                           left: slp || isSquare ? 8 : 12,
-                          right: srp || isSquare ? 8 : (isDropDown ? 9 : 12),
-                          top: svp ? 3 : 5,
-                          bottom: svp ? 3 : 5,
+                          right: srp || isSquare ? 8 : 12,
+                          top: svp ? 3 : 6,
+                          bottom: svp ? 3 : 6,
                         )),
               child: child ??
                   Row(
