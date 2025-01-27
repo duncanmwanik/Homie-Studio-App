@@ -1,0 +1,61 @@
+import '../../colors/var/colors.dart';
+
+Map<int, List<String>> hubSegments = {
+  2: [hubColors[0].code, hubColors[1].code],
+  3: [
+    hubColors[0].code,
+    hubColors[1].code,
+    hubColors[2].code,
+  ],
+  4: [
+    hubColors[0].code,
+    hubColors[1].code,
+    hubColors[2].code,
+    hubColors[3].code,
+  ],
+  5: [
+    hubColors[0].code,
+    hubColors[1].code,
+    hubColors[2].code,
+    hubColors[3].code,
+    hubColors[4].code,
+  ],
+  6: [
+    hubColors[0].code,
+    hubColors[1].code,
+    hubColors[2].code,
+    hubColors[3].code,
+    hubColors[4].code,
+    hubColors[5].code,
+  ],
+  7: [
+    hubColors[0].code,
+    hubColors[1].code,
+    hubColors[2].code,
+    hubColors[3].code,
+    hubColors[4].code,
+    hubColors[5].code,
+    hubColors[6].code,
+  ],
+  8: [
+    hubColors[0].code,
+    hubColors[1].code,
+    hubColors[2].code,
+    hubColors[3].code,
+    hubColors[4].code,
+    hubColors[5].code,
+    hubColors[6].code,
+    hubColors[7].code,
+  ],
+  9: [
+    hubColors[0].code,
+    hubColors[1].code,
+    hubColors[2].code,
+    hubColors[3].code,
+    hubColors[4].code,
+    hubColors[5].code,
+    hubColors[6].code,
+    hubColors[7].code,
+    hubColors[8].code,
+  ],
+};

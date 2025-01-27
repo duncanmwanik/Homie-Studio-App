@@ -1,0 +1,15 @@
+List<String> emojis = [
+  'rocket',
+  'flash',
+  'work',
+  'hit',
+  'fire',
+  'flag',
+  'check',
+  'alarm',
+  'key',
+  'music',
+  'party',
+  'sparkles',
+  'heart',
+];
